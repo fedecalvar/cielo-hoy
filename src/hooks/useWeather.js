@@ -10,12 +10,14 @@ export function useWeather() {
 
   async function fetchWeather(city) {
     if (!city) return
-    setCityName(city)
+    setLoading(true)
     const data = await getCoordinates(city)
     const lat = data.results[0].latitude
     const lon = data.results[0].longitude
     const result = await getWeather(lat, lon)
+    setCityName(city)
     setWeather(result)
+    setLoading(false)
   }
 
   return { weather, loading, error, fetchWeather, cityName }

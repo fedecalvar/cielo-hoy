@@ -1,13 +1,13 @@
 
-function WeatherCard({ciudad, temperatura, tempMin, tempMax, estadoCielo, humedad, viento}) {
+function WeatherCard({city, temperature, minTemp, maxTemp, skyStatus, humidity, wind}) {
   return (
     <div>
-      <h2>{ciudad}</h2>
-      <p>{temperatura}</p>
-      <p>{tempMin}-{tempMax}</p>
-      <p>{estadoCielo}</p>
-      <p>{humedad}</p>
-      <p>{viento}</p>
+      <h2>{city}</h2>
+      <p>{temperature}</p>
+      <p>{minTemp}-{maxTemp}</p>
+      <p>{skyStatus}</p>
+      <p>{humidity}</p>
+      <p>{wind}</p>
     </div>
   )
 }

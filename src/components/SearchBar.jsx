@@ -1,12 +1,13 @@
 import { useState } from 'react'
 
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
   
   const [ciudad, setCiudad] = useState('');
 
   function handleSearch() {
-        console.log(ciudad)
+        // Llama a fetchWeather con la ciudad que escribió el usuario
+        onSearch(ciudad)
       }
 
 
@@ -14,7 +15,6 @@ function SearchBar() {
     <div>
       <input type="text" value={ciudad} onChange={(e) => setCiudad(e.target.value)} />
       <button onClick={handleSearch}>Buscar</button>
-      
     </div>
   )
 }

@@ -1,19 +1,27 @@
 import SearchBar from './components/SearchBar'
-import { useEffect } from 'react'
 import WeatherCard from './components/WeatherCard'
-import { getCoordinates } from './services/weatherService'
+import { useWeather } from './hooks/useWeather'
+import { getWeatherDescription } from './services/weatherService'
 
 function App() {
-  
-  useEffect(() =>{
-  getCoordinates('Córdoba').then(data => console.log(data))
-}, [])
 
+  const {weather, loading, error, fetchWeather, cityName} = useWeather()
+  console.log(weather)
   return (
     <div>
-      <SearchBar />
-      <WeatherCard ciudad='cordoba' temperatura={25} tempMin={5} tempMax={20} estadoCielo='despejado' humedad='25%' viento='5km'/>
-      
+      <SearchBar onSearch={fetchWeather}/>
+      {weather && (<WeatherCard
+        temperature={Math.round(weather.current.temperature_2m)}
+        minTemp={Math.round(weather.daily.temperature_2m_min[0])}
+        maxTemp={Math.round(weather.daily.temperature_2m_max[0])}
+        humidity={`${weather.current.relative_humidity_2m}%`}
+        wind={`${weather.current.wind_speed_10m} km/h`}
+        // al dato de ciudad lo tengo guardado en el hook cuando hago la busqueda, en el parametro
+        // city de fetchWeather
+        city={cityName}
+        skyStatus={getWeatherDescription(weather.current.weather_code)}
+        />
+      )}
     </div>
   )
 }
